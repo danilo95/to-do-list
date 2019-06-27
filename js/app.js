@@ -40,6 +40,7 @@ var assignee=document.getElementById("assignee");
 var assigneeValue = assignee.options[assignee.selectedIndex].value;  
 var checkedValue = document.querySelector('.form-check-input:checked').value;
 var creationdate= new Date();
+
 //console.log(id,name,assigneeValue,checkedValue,creationdate);
 
 
@@ -50,7 +51,7 @@ const task={
 	name: name,
 	assignee: assigneeValue,
 	status: checkedValue,
-	creationDate: creationdate
+	creationDate: creationdate.toLocaleDateString()
 	
 } 
 
@@ -130,9 +131,7 @@ function filterStatus(){
 function sortByDates(){
 	tasks=JSON.parse(localStorage.getItem('tasks'));
 	var date_sort_asc = function (date1, date2) {
-		// This is a comparison function that will result in dates being sorted in
-		// ASCENDING order. As you can see, JavaScript's native comparison operators
-		// can be used to compare dates. This was news to me.
+		
 		if (date1 > date2) return 1;
 		if (date1 < date2) return -1;
 		return 0;
