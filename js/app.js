@@ -1,4 +1,5 @@
 let id;
+var creationdate= new Date();
 let filterInput = document.getElementById('Search');
 let filterState = document.getElementById('inlineFormCustomSelect');
 let dateInput = document.getElementById('sortDate');
@@ -39,9 +40,6 @@ var name=document.getElementById("Name").value;
 var assignee=document.getElementById("assignee");
 var assigneeValue = assignee.options[assignee.selectedIndex].value;  
 var checkedValue = document.querySelector('.form-check-input:checked').value;
-var creationdate= new Date('1/1/2015');
-creationdate.setHours(0, 0, 0);
-
 
 //objects
 const task={
@@ -50,7 +48,8 @@ const task={
 	name: name,
 	assignee: assigneeValue,
 	status: checkedValue,
-	creationDate: creationdate.toLocaleDateString()
+	creationDate: creationdate
+	//
 	
 } 
 saveInfo(task);
@@ -105,8 +104,22 @@ function filterStatus(tr){
 
 function sortByDates(){
 	tasks=JSON.parse(localStorage.getItem('tasks'));
-	tasks.sort((a, b) => (a.creationDate < b.creationDate) ? 1 : -1);
-	console.log(tasks);
+	
+	  var filterByDate=tasks.sort(function (a, b) {
+		let dateA = new Date(a.creationDate)
+		let dateB = new Date(b.creationDate);
+		if(dateA > dateB) return -1;
+		if(dateA < dateB) return 1;
+		return  0;
+	});
+
+
+	  $("#showtable tr").remove(); 
+	  for (var i = 0; i < tasks.length; i++) {
+		showtable.innerHTML += "<tr><td>" + filterByDate[i].id + "</td><td>" + filterByDate[i].name + "</td><td>"+ filterByDate[i].assignee + "</td><td>"+ filterByDate[i].status + "</td><td>"+ filterByDate[i].creationDate + "</td><td>"+ "<button type='button' class='btn btn-danger' id='delete-element' onclick='deleteItem("+filterByDate[i].id+")'>Delete</button></td></tr>"; //draw the new task
+}
+	
+	
 
 }
 
