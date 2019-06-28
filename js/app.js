@@ -114,12 +114,10 @@ function sortByDates(){
 	});
 
 
-	  $("#showtable tr").remove(); 
+	  $("#showtable td").remove(); 
 	  for (var i = 0; i < tasks.length; i++) {
 		showtable.innerHTML += "<tr><td>" + filterByDate[i].id + "</td><td>" + filterByDate[i].name + "</td><td>"+ filterByDate[i].assignee + "</td><td>"+ filterByDate[i].status + "</td><td>"+ filterByDate[i].creationDate + "</td><td>"+ "<button type='button' class='btn btn-danger' id='delete-element' onclick='deleteItem("+filterByDate[i].id+")'>Delete</button></td></tr>"; //draw the new task
 }
-	
-	
 
 }
 
